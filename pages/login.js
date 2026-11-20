@@ -1,6 +1,12 @@
 const user = require('../data/user');
 
 class Login{
+    constructor(page){
+        this.page = page;
+        this.emailField = page.getByRole('textbox', { name: 'Text field for the login email' });
+        this.passwordField = page.getByRole('textbox', { name: 'Text field for the login password' });
+        this.loginButton = page.getByRole('button', { name: 'Login', exact: true });
+    }
 
 }
   

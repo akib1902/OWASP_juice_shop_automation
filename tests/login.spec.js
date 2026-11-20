@@ -7,7 +7,7 @@ test.beforeEach(async ({ page }) => {
   loginPage = require('../pages/login');
   await page.goto('http://localhost:3000/#/login');
   await page.getByRole('button', { name: 'Close Welcome Banner' }).click();
-}
+});
 
 // test('test', async ({ page }) => {
 //   await expect(page.getByText('Invalid email or password.')).toBeVisible();
