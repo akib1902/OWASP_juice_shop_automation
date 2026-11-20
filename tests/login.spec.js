@@ -1,12 +1,32 @@
 import { test, expect } from '@playwright/test';
 const user = require('../data/user');
+const Login = require('../pages/login');
 
-let loginPage;
+let login;
+  
+test.beforeEach(async ({ page, context }) => {
+    await context.addCookies([
+        { name: 'welcomebanner_status', value: 'dismiss', url: process.env.BASE_URL },
+        { name: 'cookieconsent_status', value: 'dismiss', url: process.env.BASE_URL },
+    ]);
+    login = new Login(page);
+});
 
-test.beforeEach(async ({ page }) => {
-  loginPage = require('../pages/login');
-  await page.goto('http://localhost:3000/#/login');
-  await page.getByRole('button', { name: 'Close Welcome Banner' }).click();
+// invalid email/password login test suite
+test('should fail in login without invalid password', async ({ page }) => {
+    await login.open();
+    await login.logIn(user.newUser1.email, user.invalidUser.password);
+    await expect(page.getByText('Invalid email or password.')).toBeVisible();
+});
+test('should fail in login without invalid email', async ({ page }) => {
+    await login.open();
+    await login.logIn(user.invalidUser.email, user.newUser1.password);
+    await expect(page.getByText('Invalid email or password.')).toBeVisible();
+});
+
+test('login with valid credentials', async ({ page }) => {
+    await login.open();
+    await login.logIn(user.newUser1.email, user.newUser1.password);
 });
 
 // test('test', async ({ page }) => {
