@@ -6,6 +6,8 @@ class Login{
         this.emailField = page.getByRole('textbox', { name: 'Text field for the login email' });
         this.passwordField = page.getByRole('textbox', { name: 'Text field for the login password' });
         this.loginButton = page.getByRole('button', { name: 'Login', exact: true });
+        this.accountMenu = page.getByRole('button', { name: 'Show/hide account menu' });
+        this.logOutButton = page.getByRole('menuitem', { name: 'Logout' });
         // this.dismissBannerButton = page.getByRole('button', { name: 'Close Welcome Banner' });
     }
     async open(){
@@ -20,6 +22,11 @@ class Login{
         await this.loginButton.click();
     }
 
+    async logOut(){
+        await this.accountMenu.click();
+        await this.logOutButton.click();
+    }
+
 }
   
 module.exports = Login;
@@ -31,3 +38,5 @@ module.exports = Login;
 //   await page.getByRole('textbox', { name: 'Text field for the login password' }).click();
 //   await page.getByRole('textbox', { name: 'Text field for the login password' }).fill('Akibakib');
 //   await page.getByRole('button', { name: 'Login', exact: true }).click();
+//   await page.getByRole('menuitem', { name: 'Logout' }).click();
+//   await page.getByRole('button', { name: 'Show/hide account menu' }).click();

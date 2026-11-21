@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
-const user = require('../data/user');
-const authPage = require('../pages/auth');
-const constant = require('../data/constant');
+const user = require('../../data/user');
+const authPage = require('../../pages/auth');
+const constant = require('../../data/constant');
 
 let auth;
   

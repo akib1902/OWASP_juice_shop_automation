@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
-const user = require('../data/user');
-const Login = require('../pages/login');
+const user = require('../../data/user');
+const Login = require('../../pages/login');
+const constant = require('../../data/constant');
 
 let login;
   
@@ -27,7 +28,17 @@ test('should fail in login without invalid email', async ({ page }) => {
 test('login with valid credentials', async ({ page }) => {
     await login.open();
     await login.logIn(user.newUser1.email, user.newUser1.password);
+    await expect(page).toHaveURL(constant.urls.homePage);
 });
+
+test('logout after login', async ({ page }) => {
+    await login.open();
+    await login.logIn(user.newUser1.email, user.newUser1.password);
+    await expect(page).toHaveURL(constant.urls.homePage);
+    await login.logOut();
+});
+
+
 
 // test('test', async ({ page }) => {
 //   await expect(page.getByText('Invalid email or password.')).toBeVisible();
