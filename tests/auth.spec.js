@@ -37,3 +37,4 @@ test('should fail to register a duplicate email user', async ({ page }) => {
     await auth.clickRegisterButton();
     expect(auth.emailMustBeUnique).toBeVisible();
 });
+///hellow
