@@ -26,4 +26,14 @@ test('should register a new user', async ({ page }) => {
     await auth.clickRegisterButton();
 });
 
-//login with new user
+//register duplicate email user
+test('should fail to register a duplicate email user', async ({ page }) => {
+    await auth.open();
+    await auth.fillEmailField(user.newUser1.email);
+    await auth.fillPasswordField(user.newUser1.password);
+    await auth.fillConfirmPasswordField(user.newUser1.password);
+    await auth.selectSecurityQuestion();
+    await auth.fillSecurityQuestionAnswerField(constant.questions.mothersMaidenName);
+    await auth.clickRegisterButton();
+    expect(auth.emailMustBeUnique).toBeVisible();
+});

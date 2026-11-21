@@ -12,6 +12,7 @@ class Auth{
         this.mothersMaidenNameOption = this.page.getByRole('option', { name: "Mother's maiden name?" });
         this.securityQuestionAnswerField = this.page.getByRole('textbox', { name: 'Field for the answer to the' });
         this.registerButton = this.page.getByRole('button', { name: 'Button to complete the' });
+        this.emailMustBeUnique = this.page.getByText('Email must be unique');
     }
 
     async open(){
@@ -36,6 +37,7 @@ class Auth{
 
     async selectSecurityQuestion(){
         await this.securityQuestionDropdown.click();
+        await this.page.getByRole('listbox').waitFor({ state: 'visible' });
         await this.mothersMaidenNameOption.click();
     }
 
