@@ -35,6 +35,6 @@ test('should fail to register a duplicate email user', async ({ page }) => {
     await auth.selectSecurityQuestion();
     await auth.fillSecurityQuestionAnswerField(constant.questions.mothersMaidenName);
     await auth.clickRegisterButton();
+    await page.waitForTimeout(1000);
     expect(auth.emailMustBeUnique).toBeVisible();
 });
-///hellow
