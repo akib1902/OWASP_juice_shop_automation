@@ -1,7 +1,9 @@
 module.exports = {
   urls: {
     baseUrl: process.env.BASE_URL,
-    homePage: `${process.env.BASE_URL}/#/search`
+    loginPage: `${process.env.BASE_URL}/#/login`,
+    homePage: `${process.env.BASE_URL}/#/search`,
+    authPage: `${process.env.BASE_URL}/#/register`
   },
   questions: {
     mothersMaidenName: "maiden",

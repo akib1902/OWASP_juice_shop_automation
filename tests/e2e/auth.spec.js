@@ -18,9 +18,9 @@ test.beforeEach(async ({ page, context }) => {
 test('should register a new user', async ({ page }) => {
     await auth.open();
     // await auth.clickRegisterLink();
-    await auth.fillEmailField(user.newUser1.email);
-    await auth.fillPasswordField(user.newUser1.password);
-    await auth.fillConfirmPasswordField(user.newUser1.password);
+    await auth.fillEmailField(user.newRegistration.email);
+    await auth.fillPasswordField(user.newRegistration.password);
+    await auth.fillConfirmPasswordField(user.newRegistration.password);
     await auth.selectSecurityQuestion();
     await auth.fillSecurityQuestionAnswerField(constant.questions.mothersMaidenName);
     await auth.clickRegisterButton();
@@ -29,12 +29,11 @@ test('should register a new user', async ({ page }) => {
 //register duplicate email user
 test('should fail to register a duplicate email user', async ({ page }) => {
     await auth.open();
-    await auth.fillEmailField(user.newUser1.email);
-    await auth.fillPasswordField(user.newUser1.password);
-    await auth.fillConfirmPasswordField(user.newUser1.password);
+    await auth.fillEmailField(user.newRegistration.email);
+    await auth.fillPasswordField(user.newRegistration.password);
+    await auth.fillConfirmPasswordField(user.newRegistration.password);
     await auth.selectSecurityQuestion();
     await auth.fillSecurityQuestionAnswerField(constant.questions.mothersMaidenName);
     await auth.clickRegisterButton();
-    await page.waitForTimeout(1000);
-    expect(auth.emailMustBeUnique).toBeVisible();
+    await expect(auth.emailMustBeUnique).toBeVisible();
 });

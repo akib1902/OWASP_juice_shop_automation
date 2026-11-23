@@ -1,4 +1,6 @@
 const user = require('../data/user');
+const constant = require('../data/constant');
+const auth = require('./auth');
 
 class Login{
     constructor(page){
@@ -11,7 +13,7 @@ class Login{
         // this.dismissBannerButton = page.getByRole('button', { name: 'Close Welcome Banner' });
     }
     async open(){
-        await this.page.goto('/#/login');
+        await this.page.goto(constant.urls.loginPage);
         console.log(`Login page opened on: ${process.env.BASE_URL}`);
         // await this.dismissBannerButton.click();
     }
@@ -30,13 +32,3 @@ class Login{
 }
   
 module.exports = Login;
-  
-//   await page.goto('http://localhost:3000/#/login');
-//   await page.getByRole('button', { name: 'Close Welcome Banner' }).click();
-//   await page.getByRole('textbox', { name: 'Text field for the login email' }).click();
-//   await page.getByRole('textbox', { name: 'Text field for the login email' }).fill('akib@example.com');
-//   await page.getByRole('textbox', { name: 'Text field for the login password' }).click();
-//   await page.getByRole('textbox', { name: 'Text field for the login password' }).fill('Akibakib');
-//   await page.getByRole('button', { name: 'Login', exact: true }).click();
-//   await page.getByRole('menuitem', { name: 'Logout' }).click();
-//   await page.getByRole('button', { name: 'Show/hide account menu' }).click();
