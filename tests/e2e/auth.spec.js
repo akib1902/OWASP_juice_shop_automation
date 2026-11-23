@@ -4,7 +4,8 @@ const authPage = require('../../pages/auth');
 const constant = require('../../data/constant');
 
 let auth;
-  
+
+
 test.beforeEach(async ({ page, context }) => {
     await context.addCookies([
         { name: 'welcomebanner_status', value: 'dismiss', url: process.env.BASE_URL },
@@ -13,6 +14,7 @@ test.beforeEach(async ({ page, context }) => {
     auth = new authPage(page);
 });
 
+test.describe.configure({ mode: 'serial' });
 
 //goto authpage register new user
 test('should register a new user', async ({ page }) => {

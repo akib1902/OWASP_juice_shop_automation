@@ -59,10 +59,7 @@ class Auth {
         await this.registerButton.click();
     }
 
-    async registerNewUser(
-        email = user.newUser1.email,
-        password = user.newUser1.password
-    ) {
+    async registerNewUser(email,password) {
         await this.open();
         await this.fillEmailField(email);
         await this.fillPasswordField(password);
