@@ -3,7 +3,6 @@ import Auth from '../../pages/auth';
 const user = require('../../data/user');
 const Login = require('../../pages/login');
 const constant = require('../../data/constant');
-const auth = require('../../pages/auth');
 
 let login;
   
@@ -16,29 +15,34 @@ test.beforeEach(async ({ page, context }) => {
 });
 
 // invalid email/password login test suite
-test('should fail in login without invalid password', async ({ page }) => {
+test('should fail in login with invalid password', async ({ page }) => {
     await login.open();
     await login.logIn(user.newUser1.email, user.invalidUser.password);
     await expect(page.getByText('Invalid email or password.')).toBeVisible();
 });
-test('should fail in login without invalid email', async ({ page }) => {
+test('should fail in login with invalid email', async ({ page }) => {
     await login.open();
     await login.logIn(user.invalidUser.email, user.newUser1.password);
     await expect(page.getByText('Invalid email or password.')).toBeVisible();
 });
 
 test('login with valid credentials', async ({ page }) => {
+    const email = await login.createUniqueEmail();
     const auth = new Auth(page);
-    await auth.registerNewUser();
-    await login.open();
-    await login.logIn(user.newUser1.email, user.newUser1.password);
+
+    await auth.registerNewUser(email, user.newUser1.password);
+    await login.logIn(email, user.newUser1.password);
     await expect(page).toHaveURL(constant.urls.homePage);
 });
 
 test('logout after login', async ({ page }) => {
-    await login.open();
-    await login.logIn(user.newUser1.email, user.newUser1.password);
+    const email = await login.createUniqueEmail();
+    const auth = new Auth(page);
+
+    await auth.registerNewUser(email, user.newUser1.password);
+    await login.logIn(email, user.newUser1.password);
     await expect(page).toHaveURL(constant.urls.homePage);
+
     await login.logOut();
 });
 

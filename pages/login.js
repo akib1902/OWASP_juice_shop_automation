@@ -29,6 +29,12 @@ class Login{
         await this.logOutButton.click();
     }
 
+    async createUniqueEmail(){
+        const timestamp = new Date().getTime();
+        const uniqueEmail = `user_${timestamp}@example.com`;
+        return uniqueEmail;
+    }
+
 }
   
 module.exports = Login;

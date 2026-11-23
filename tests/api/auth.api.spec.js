@@ -1,21 +1,4 @@
 
-// import { test, expect } from '@playwright/test';
 
-// const BASE_URL = 'http://localhost:3000';
 
-// test.describe('API Authentication Tests', () => {
-
-//   test('AUTH-008: should deny access without token', async ({ request }) => {
-
-//     const response = await request.get(
-//       `${BASE_URL}/rest/basket/1`
-//     );
-
-//     // Verify that access is denied
-//     expect(401).toContain(response.status());
-
-//     console.log('Status:', response.status());
-//     console.log('Response:', await response.text());
-//   });
-
-// });
+// Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJkYXRhIjp7ImlkIjoyNywidXNlcm5hbWUiOiIiLCJlbWFpbCI6ImFraWJAZXhhbXBsZS5jb20iLCJwYXNzd29yZCI6ImIwMDg1YzlmYjg0MjllNWY2MWY5YmQ1MDNiMDQyMDQwIiwicm9sZSI6ImN1c3RvbWVyIiwiZGVsdXhlVG9rZW4iOiIiLCJsYXN0TG9naW5JcCI6IjAuMC4wLjAiLCJwcm9maWxlSW1hZ2UiOiIvYXNzZXRzL3B1YmxpYy9pbWFnZXMvdXBsb2Fkcy9kZWZhdWx0LnN2ZyIsInRvdHBTZWNyZXQiOiIiLCJpc0FjdGl2ZSI6dHJ1ZSwiY3JlYXRlZEF0IjoiMjAyNi0xMS0yMyAwNTo0MTo0MC4xNjQgKzAwOjAwIiwidXBkYXRlZEF0IjoiMjAyNi0xMS0yMyAwNTo0MTo0MC4xNjQgKzAwOjAwIiwiZGVsZXRlZEF0IjpudWxsfSwiYmlkIjo2LCJpYXQiOjE3OTU0MTQxMzJ9.Wn4MosRZ9BTQ-wx4pEWvbcNei006UsFEq-NeD4JsKKZhV_baxF6yLhtZggjRKFEAdqf0DSANnMMNuyL5Frki8yeWmFartQZd7Tv8NK9SYmmUvJ9TSxOF7AoqZp1Xqc3TgEDbHF9riDVP9ZcJ3XH6IXAYlYvMhEuygTrhUezhl0Q
