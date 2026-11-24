@@ -1,5 +1,7 @@
 import {test, expect} from '@playwright/test';
 const constant = require('../../data/constant');
+const { authToken } = require('../../src/auth.api');
+const user = require('../../data/user');
 
 
 test.describe('Authentication API Tests', () => {
@@ -19,14 +21,9 @@ test.describe('Authentication API Tests', () => {
     });
     
     test('should allow with valid token', async ({ request }) => {
-        const responseToken = await request.post(constant.urls.loginApi, {
-            data: {
-                email: process.env.email,
-                password: process.env.password
-            }
-        });
-        const body = await responseToken.json();
-        const token = body.authentication.token;
+
+        const token = await authToken(request, user.newRegistration.email, user.newRegistration.password);
+
         const responseBasket = await request.get(`${constant.urls.accessBasketPage}`, {headers: {Authorization: `Bearer ${token}`}});
         expect(responseBasket.status()).toBe(200);
     });
