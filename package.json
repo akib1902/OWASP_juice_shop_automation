@@ -1,26 +1,42 @@
 {
-  "name": "owasp_juice_shop_automation",
+  "name": "jshop-playwright-framework",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {},
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/akib1902/OWASP_juice_shop_automation.git"
+  "private": true,
+  "description": "Production-grade Playwright (JavaScript) + Page Object Model framework for OWASP Juice Shop",
+  "type": "module",
+  "engines": {
+    "node": ">=18.18"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/akib1902/OWASP_juice_shop_automation/issues"
+  "scripts": {
+    "test": "playwright test",
+    "test:e2e": "playwright test tests/e2e",
+    "test:api": "playwright test tests/api",
+    "test:smoke": "playwright test --grep @smoke",
+    "test:regression": "playwright test --grep @regression",
+    "test:auth": "playwright test tests/e2e/auth.spec.js",
+    "test:headed": "cross-env HEADED=true playwright test",
+    "test:debug": "playwright test --debug",
+    "test:ui": "playwright test --ui",
+    "test:trace": "playwright show-trace",
+    "report": "playwright show-report reports/html",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "list": "playwright test --list",
+    "check:env": "node scripts/check-env.js"
   },
-  "homepage": "https://github.com/akib1902/OWASP_juice_shop_automation#readme",
   "devDependencies": {
-    "@playwright/test": "^1.65.1",
-    "@types/node": "^26.6.6"
-  },
-  "dependencies": {
-    "dotenv": "^18.0.10"
+    "@eslint/js": "^9.15.0",
+    "@playwright/test": "^1.56.0",
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.4.7",
+    "eslint": "^9.15.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-playwright": "^2.1.0",
+    "globals": "^15.12.0",
+    "prettier": "^3.4.1"
   }
 }

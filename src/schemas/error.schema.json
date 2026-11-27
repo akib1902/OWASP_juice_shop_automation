@@ -1,0 +1,15 @@
+{
+  "$id": "https://juice-shop.test/schemas/error.json",
+  "title": "ErrorResponse",
+  "description": "Negative-path contract. Juice Shop answers unknown API routes with JSON {message, errors}; routers that throw HTML would fail this schema, which is exactly the regression we want to catch.",
+  "type": "object",
+  "required": ["message"],
+  "properties": {
+    "message": { "type": "string", "minLength": 1 },
+    "errors": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "additionalProperties": true
+}

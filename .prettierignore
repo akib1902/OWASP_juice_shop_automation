@@ -1,0 +1,9 @@
+node_modules/
+reports/
+test-results/
+playwright-report/
+package-lock.json
+
+# User-supplied source material: never reformat someone else's document.
+test cases.md
+.cloud-attachments/

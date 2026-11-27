@@ -1,0 +1,21 @@
+{
+  "$id": "https://juice-shop.test/schemas/unauthorized.json",
+  "title": "UnauthorizedError",
+  "description": "401 responses from the api/* routers (express-jwt style). Deliberately a separate schema from error.schema.json: the application really does emit two different error envelopes, and a contract test should describe reality rather than wish it were uniform.",
+  "type": "object",
+  "required": ["error"],
+  "properties": {
+    "error": {
+      "type": "object",
+      "required": ["message", "name", "status"],
+      "properties": {
+        "message": { "type": "string", "minLength": 1 },
+        "name": { "type": "string", "minLength": 1 },
+        "code": { "type": "string" },
+        "status": { "type": "integer", "minimum": 400 }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,31 +1,54 @@
-import {test, expect} from '@playwright/test';
-const constant = require('../../data/constant');
-const { authToken } = require('../../src/auth.api');
-const user = require('../../data/user');
+/**
+ * API-004..API-007 + AUTH-008 — authentication and authorization.
+ *
+ * STRATEGY: the negative cases are the point. A login test that only proves the
+ * happy path tells you the endpoint exists; proving that a bad password is
+ * rejected and that an anonymous caller cannot read a basket tells you the
+ * security boundary works.
+ */
+import { expect, test } from '../../src/fixtures/base.fixture.js';
 
+test.describe('Authentication API', () => {
+  test('API-004 login with valid credentials succeeds @smoke @api', async ({ api, customer }) => {
+    const response = await api.auth.login(customer.email, customer.password);
 
-test.describe('Authentication API Tests', () => {
+    expect(response.status).toBe(200);
+    expect(response.token).toMatch(/^[\w-]+\.[\w-]+\.[\w-]+$/); // JWT: header.payload.signature
+    expect(response.basketId).toBeTruthy();
+    expect(response.email).toBe(customer.email);
+  });
 
-    test('should authenticate and return a token', async ({ request }) => {
+  test('API-005 login with invalid credentials is rejected', async ({ api, customer }) => {
+    const response = await api.auth.login(customer.email, 'definitely-not-the-password');
 
-    });
+    expect(response.status).toBe(401);
+    expect(response.ok).toBe(false);
+    expect(response.token).toBeUndefined();
+    expect(String(response.body)).toContain('Invalid email or password');
+  });
 
-    test('should deny without token', async ({ request }) => {
-        const response = await request.get(`${constant.urls.accessBasketPage}`);
-        expect(response.status()).toBe(401);
-    });
+  test('API-006 authenticated request is authorized', async ({ api, customer }) => {
+    const response = await api.basket.items(customer.token);
 
-    test('should deny with invalid token', async ({ request }) => {
-        const response = await request.get(`${constant.urls.accessBasketPage}`, {headers: {Authorization: 'Bearer invalid_token'}});
-        expect(response.status()).toBe(401);
-    });
-    
-    test('should allow with valid token', async ({ request }) => {
+    expect(response.status).toBe(200);
+    expect(Array.isArray(response.body.data)).toBe(true);
+  });
 
-        const token = await authToken(request, user.newRegistration.email, user.newRegistration.password);
+  test('API-007 request without authentication is rejected', async ({ api }) => {
+    const response = await api.basket.items();
 
-        const responseBasket = await request.get(`${constant.urls.accessBasketPage}`, {headers: {Authorization: `Bearer ${token}`}});
-        expect(responseBasket.status()).toBe(200);
-    });
+    expect(response.status).toBe(401);
+    expect(response.body).not.toHaveProperty('data');
+  });
 
+  test('AUTH-008 protected resource without token is denied', async ({ api, customer }) => {
+    // /rest/basket/{id} is scoped to the owning user. Without a token it must be
+    // rejected — and with another user's token it must not leak their basket.
+    const anonymous = await api.basket.basket(customer.basketId);
+    expect(anonymous.status).toBe(401);
+
+    const authenticated = await api.basket.basket(customer.basketId, customer.token);
+    expect(authenticated.status).toBe(200);
+    expect(authenticated.body.data.id).toBe(customer.basketId);
+  });
 });
